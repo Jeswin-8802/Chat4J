@@ -1,0 +1,61 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<title>Create New Forum</title>
+
+	<!-- Favicons Start -->
+
+	<!-- In case image.png -->
+	<link rel="shortcut icon" type="image/png" href="{% static 'icon/chat.png' %}" />
+
+	<!-- Favicons End -->
+
+	<!-- CSS Start -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href = "{% static 'css/create_box.css' %}">
+    <!-- CSS End -->
+</head>
+<body>
+    <center><div class="box">
+        <h2>C R E A T E &nbsp;&nbsp; F O R U M</h2>
+        {% block content %}
+            {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message|escape }}
+                </div>
+            {% endfor %}
+            <br>
+            {% for i in form %}
+                {% for error in i.errors %}
+                    <br>
+                    <div class="alert alert-danger" role="alert">
+                        {{ error|escape }}
+                    </div>
+                    <br>
+                {% endfor %}                   
+            {% endfor %}
+        {% endblock %}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="image-input">
+                <img src="{% static 'icon/group.png' %}" class="cover" alt="couldn't render image">
+            </label>
+            <div class="mb-3">
+                <input class="form-control" type="file" name="image" id="image-input">
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="text" class="form-control" name="name" aria-describedby="Help" placeholder="Enter Forum Name">
+                <small id="Help" class="form-text text-muted">The Forum will be created using this name and can only be accessed using it</small>
+            </div>
+            <br>
+            <textarea id="form21" name="description" class="md-textarea form-control" rows="3" required="true" placeholder="About..."></textarea>
+            <br>
+            <button type="submit" class="btn btn-outline-dark">S U B M I T</button>
+            <br>
+        </form>
+    </div></center>
+</body>

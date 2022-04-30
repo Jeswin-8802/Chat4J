@@ -1,0 +1,58 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<title>HOME</title>
+
+	<!-- Favicons Start -->
+
+	<!-- In case image.ipng -->
+	<link rel="shortcut icon" type="image/png" href="{% static 'icon/chat.png' %}" />
+
+	<!-- Favicons End -->
+
+	<!-- CSS Start -->
+	<link rel="stylesheet" type="text/css" href = "{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- CSS End -->
+
+</head>
+<body>
+    <nav class="navbar navbar-light bg-dark">
+
+        {% if image %}
+            <img class="user_pic" width="150px" height="150px" src="{{ image.url }}" alt="Image couldn't be rendered">
+        {% else %}
+            <img class="user_pic" width="150px" height="150px" src="{% static 'icon/user.png' %}" alt="Image couldn't be rendered">
+        {% endif %}
+        <div style="width:6%;color:rgb(150, 150, 150);">
+        </div>
+        <h3 class="username"> ✨{{ username }}✨ </h3>
+
+        <form method="POST" class="form-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger">L O G O U T</button>
+        </form>
+
+    </nav>
+    <br><br>
+    <center><img class="icon" src="{% static 'icon/chat.png' %}" alt="Looks like the image could'nt be rendered"></center>
+
+    <center><div class="box">
+        <button type="submit" id="b1" class="btn btn-outline-light">E N T E R &nbsp;&nbsp; F O R U M</button>
+        <button type="submit" id="b2" class="btn btn-outline-secondary">C R E A T E &nbsp;&nbsp; F O R U M</button>        
+    </div></center>
+    <br><br>
+    
+    <script>
+        document.getElementById("b1").addEventListener("click", function () {
+            location.href = "{% url 'enter_forum' %}"
+        });
+        document.getElementById("b2").addEventListener("click", function () {
+            location.href = "{% url 'create_forum' %}"
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<title>Successful Creation of Forum</title>
+
+	<!-- Favicons Start -->
+
+	<!-- In case image.ipng -->
+	<link rel="shortcut icon" type="image/png" href="{% static 'icon/chat.png' %}" />
+
+	<!-- Favicons End -->
+
+	<!-- CSS Start -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- CSS End -->
+
+    <style>
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 14px;
+            color: rgb(255, 255, 255);
+            background: linear-gradient(#4f5050, #343f58);
+            background-repeat: no-repeat;
+            background-size: 1000% 1000%;
+        }
+    
+        h1 {
+            text-align: center;
+            margin-bottom: 0;
+            margin-top: 60px;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>The Forum <bold style="color:blanchedalmond">{{ ForumName }}</bold> has successfully been created</h1>
+    <br><br>
+    <center><button type="submit" class="btn btn-outline-light">H O M E</button></center> 
+    <script>
+        document.querySelector("button").addEventListener("click", function () {
+            location.href = "{% url 'index' %}"
+        });
+    </script>
+</body>
+</html>

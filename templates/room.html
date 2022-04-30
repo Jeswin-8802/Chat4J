@@ -1,0 +1,223 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>{{ room_name }}</title>
+
+        <!-- Favicons Start -->
+
+	    <!-- In case image.ipng -->
+	    <link rel="shortcut icon" type="image/png" href="{% static 'icon/chat.png' %}" />
+
+	    <!-- Favicons End -->
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    </head>
+
+    <body style="background:rgb(238, 246, 255);background-repeat:repeat;">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <figure class="image is-128x128" style="margin:15px;position:fixed;">
+                    {% if user.image %}
+                        <img class="is-rounded" style="border: 5px solid rgb(255, 255, 255);" width="150px" height="150px" src="{{ user.image.url }}" alt="Image couldn't be rendered">
+                    {% else %}
+                        <img class="is-rounded" style="border: 5px solid rgb(255, 255, 255);" width="150px" height="150px" src="{% static 'icon/user.png' %}" alt="Image couldn't be rendered">
+                    {% endif %}
+                </figure>
+            </div>
+          
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-start">
+                <a class="navbar-item" style="width:150px;"></a>
+                
+                <a class="navbar-item is-size-4 has-text-weight-bold">
+                    {{ user.username }}
+                </a>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link is-size-5">
+                    My Bio
+                  </a>
+          
+                  <div class="navbar-dropdown">
+                    <a class="navbar-item">
+                        ✨ {{ user.bio }} ✨
+                    </a>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <div class="buttons" id="home">
+                    <a class="button is-primary">
+                      <strong>H O M E</strong>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </nav>
+        <section class="section">
+            <div class="container">
+                <div class="columns is-multiline">
+                    <div class="column is-6 is-offset-3 mb-2">
+                        <section class="hero is-warning">
+                            <div class="hero-body" style="display:flex;padding:10px;border-radius:10%">
+                                <div class="column is-9">
+                                    <p class="title">
+                                        {{ room.name }}
+                                    </p>
+                                    <p class="subtitle">
+                                        {{ room.description }}
+                                    </p>
+                                </div>
+                                <div>
+                                    {% if room.image %}
+                                        <img src="{{ room.image.url }}" alt="Sorry for the hiccup" style="border-radius:5%;border: 5px solid rgb(255, 255, 255);">
+                                    {% else %}
+                                        <img src="{% static 'icon/group.png' %}" alt="Sorry for the hiccup">
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </section>
+                        <small class="has-text-grey-light is-italic">admin: <strong>{{ room.admin }}</strong></small>
+                    </div>
+
+                    <div class="column is-6 is-offset-3">
+                        <div class="box">
+                            <div id="chat-messages" style="max-height: 400px; overflow-y: scroll;">
+                                {% for m in messages %}
+                                    {% if m.user.username == user.username %}
+                                        <article class="message is-primary has-text-right" style="width:70%;float:right;margin:10px">
+                                            <div class="message-header">
+                                                <div class="is-size-4" style="display:flex;">
+                                                    <strong> {{ m.user.username }} </strong> &nbsp;&nbsp;
+                                                    {% if m.user.image %}
+                                                        <div style="background-image: url('{{ m.user.image.url }}');width: 50px;height: 50px;background-position: center center;background-repeat: no-repeat;border-radius:50%"></div>
+                                                    {% else %}
+                                                        <div style="background-image: url('{% static 'icon/group.png' %}');width: 50px;height: 50px;background-position: center center;background-repeat: no-repeat;border-radius:50%"></div>
+                                                    {% endif %}    
+                                                </div>
+                                            </div>
+                                            <div class="message-body" style="float:right;">
+                                                <div class="is-size-5">
+                                                    {{ m.content }}
+                                                </div>
+                                                <div class="is-size-7 is-italic" style="color:rgb(125, 188, 179)">
+                                                    {{ m.timestamp }}
+                                                </div>
+                                            </div>
+                                        </article>
+                                    {% else %}
+                                        <br>
+                                        <article class="message" style="width:70%;float:left">
+                                            <div class="message-header">
+                                                <div class="is-size-4" style="display:flex;">
+                                                    {% if m.user.image %}
+                                                        <div style="background-image: url('{{ m.user.image.url }}');width: 50px;height: 50px;background-position: center center;background-repeat: no-repeat;border-radius:50%"></div>
+                                                    {% else %}
+                                                        <div style="background-image: url('{% static 'icon/group.png' %}');width: 50px;height: 50px;background-position: center center;background-repeat: no-repeat;border-radius:50%"></div>
+                                                    {% endif %} &nbsp;&nbsp;
+                                                    <strong> {{ m.user.username }} </strong>                                  
+                                                </div>
+                                            </div>
+                                            <div class="message-body">
+                                                <div class="is-size-5">
+                                                    {{ m.content }}
+                                                </div>
+                                                <div class="is-size-7 is-italic" style="color:rgb(73, 73, 73)">
+                                                    {{ m.timestamp }}
+                                                </div>
+                                            </div>
+                                        </article>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <input class="input" type="text" placeholder="Message" id="chat-message-input">
+                            </div>
+                        </div>
+
+                        <div class="field" style="float:right;">
+                            <div class="control">
+                                <a class="button is-info" id="chat-message-submit">Submit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       {{ room.name|json_script:"json-roomname" }}
+       {{ user.username|json_script:"json-username" }}
+
+        <script>
+            function scrollToBottom() {
+                let objDiv = document.getElementById("chat-messages");
+                objDiv.scrollTop = objDiv.scrollHeight;
+            }
+
+            scrollToBottom();
+
+            const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
+            const userName = JSON.parse(document.getElementById('json-username').textContent);
+
+            const chatSocket = new WebSocket(
+                'ws://'
+                + window.location.host
+                + '/ws/chat/'
+                + roomName
+                + '/'
+            );
+
+            chatSocket.onmessage = function(e) {
+                console.log('onmessage');
+
+                const data = JSON.parse(e.data);
+
+                if (data.message) {
+                    document.querySelector('#chat-messages').innerHTML += ('<b>' + data.username + '</b>: ' + data.message + '<br>');
+                } else {
+                    alert('The message is empty!');
+                }
+
+                scrollToBottom();
+            };
+
+            chatSocket.onclose = function(e) {
+                console.log('The socket closed unexpectedly');
+            };
+
+            document.querySelector('#chat-message-input').focus();
+            document.querySelector('#chat-message-input').onkeyup = function(e) {
+                if (e.keyCode === 13) {
+                    document.querySelector('#chat-message-submit').click();
+                }
+            };
+
+            document.querySelector('#chat-message-submit').onclick = function(e) {
+                const messageInputDom = document.querySelector('#chat-message-input');
+                const message = messageInputDom.value;
+
+                chatSocket.send(JSON.stringify({
+                    'message': message,
+                    'username': userName,
+                    'room': roomName
+                }));
+
+                messageInputDom.value = '';
+            };
+
+            document.querySelector('#home').onclick = function(e) {
+                window.location.replace('/chat');
+            };
+        </script>
+    </body>
+</html>

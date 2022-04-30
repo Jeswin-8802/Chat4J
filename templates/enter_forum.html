@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ENTER Forum</title>
+
+    <!-- Favicons Start -->
+
+    <!-- In case image.png -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'icon/chat.png' %}" />
+
+    <!-- Favicons End -->
+
+    <!-- CSS Start -->
+    <link rel="stylesheet" type="text/css" href = "{% static 'css/create_box.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            background:url("{% static 'icon/chat.png' %}");
+            background-position:center;
+            background-color: #243b55;
+        }
+    </style>
+    <!-- CSS End -->
+</head>
+<body>
+    <center><div class="box">
+        <h2>E N T E R &nbsp;&nbsp; F O R U M</h2>
+        <br>
+        {% block content %}
+            {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message|escape }}
+                </div>
+            {% endfor %}
+        {% endblock %}
+        <form method="POST">
+            {% csrf_token %}
+            <br>
+            <div class="form-group">
+                <input type="text" class="form-control" name="name" aria-describedby="Help" placeholder="Enter Forum Name">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-outline-dark">S U B M I T</button>
+        </form>
+    </div></center>
+</body>
+</html>

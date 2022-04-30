@@ -1,0 +1,49 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<title>Profile</title>
+
+	<!-- Favicons Start -->
+
+	<!-- In case image.png -->
+	<link rel="shortcut icon" type="image/png" href="{% static 'icon/chat.png' %}" />
+
+	<!-- Favicons End -->
+
+	<!-- CSS Start -->
+    <link rel="stylesheet" type="text/css" href = "{% static 'css/create_box.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- CSS End -->
+</head>
+<body>
+    <center><div class="box">
+        <h2>P R O F I L E</h2>
+        <br>
+        {% block content %}
+            {% for i in form %}
+                {% for error in i.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error|escape }}
+                    </div>
+                {% endfor %}                   
+            {% endfor %}
+        {% endblock %}
+        <br>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="image-input">
+                <img src="{% static 'icon/user.png' %}" class="cover" alt="Sorry for the hiccup">
+            </label>
+            <div class="mb-3">
+                <input class="form-control" type="file" name="image" id="image-input">
+            </div>
+            <br><br>
+            <textarea id="form21" name="bio" class="md-textarea form-control" rows="3" required="true" placeholder="Tell us about yourself..."></textarea>
+            <br>
+            <button type="submit" class="btn btn-outline-dark">S U B M I T</button>
+        </form>
+    </div></center>
+</body>

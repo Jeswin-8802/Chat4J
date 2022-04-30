@@ -1,0 +1,19 @@
+body {
+    background: linear-gradient(#30405f, #123762);
+    background-size: 200% 200%;
+}
+.box {
+    display:flexbox;
+    width: 35%;
+    padding: 40px;
+    margin: 50px;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+    text-align: center;
+    justify-content: center;
+    background: linear-gradient(#dce1eb, #dfeeff);
+}
+img {
+    width: 200px;
+    height: 200px;
+}

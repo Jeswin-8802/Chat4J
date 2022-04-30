@@ -1,0 +1,34 @@
+body {
+    background: linear-gradient(#141e30, #243b55);
+    background-size: 200% 200%;
+}
+
+.user_pic {
+    position: fixed;
+    top: 1%;
+    border-radius: 50%;
+    border: 5px solid rgb(235, 235, 235);
+}
+
+.icon {
+    opacity: 0.4;
+    width:10%;
+    height:10%;
+}
+
+.username {
+    color:rgb(255, 255, 255);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5%;
+    width: 40%;
+    height: 200px;
+    background:#0d1c2c;
+    border-radius: 10px;
+    opacity: 0.8;
+}

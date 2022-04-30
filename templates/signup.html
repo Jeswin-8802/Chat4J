@@ -1,0 +1,54 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<title>SignUp</title>
+
+	<!-- Favicons Start -->
+
+	<!-- In case image.png -->
+	<link rel="shortcut icon" type="image/png" href="{% static 'icon/chat.png' %}" />
+
+	<!-- Favicons End -->
+
+	<!-- CSS Start -->
+	<link rel="stylesheet" type="text/css" href = "{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- CSS End -->
+
+</head>
+<body style="background: linear-gradient(#333041, #454547);">
+    <div class="login-box">
+        <h2>S I G N - U P</h2>
+        <br>
+        {% block content %}
+            {% for i in form %}
+                {% for error in i.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error|escape }}
+                    </div>
+                {% endfor %}                   
+            {% endfor %}
+        {% endblock %}
+        <br>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="user-box">
+                <input type="text" name="username" required="true">
+                <label>Username</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="password1" required="true">
+                <label>Password</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="password2" required="true">
+                <label>Confirm Password</label>
+            </div>
+            <center><button type="submit" class="btn btn-outline-light">S U B M I T</button></center> 
+        </form>
+    </div>
+</body>
+</html>
