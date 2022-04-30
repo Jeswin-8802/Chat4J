@@ -92,9 +92,9 @@
                             <div id="chat-messages" style="max-height: 400px; overflow-y: scroll;">
                                 {% for m in messages %}
                                     {% if m.user.username == user.username %}
-                                        <article class="message is-primary has-text-right" style="width:70%;float:right;margin:10px">
+                                        <article class="message is-primary has-text-right" style="width:70%;margin-left:28%">
                                             <div class="message-header">
-                                                <div class="is-size-4" style="display:flex;">
+                                                <div class="is-size-4" style="display:flex;margin-left:auto;">
                                                     <strong> {{ m.user.username }} </strong> &nbsp;&nbsp;
                                                     {% if m.user.image %}
                                                         <div style="background-image: url('{{ m.user.image.url }}');width: 50px;height: 50px;background-position: center center;background-repeat: no-repeat;border-radius:50%"></div>
@@ -103,7 +103,7 @@
                                                     {% endif %}    
                                                 </div>
                                             </div>
-                                            <div class="message-body" style="float:right;">
+                                            <div class="message-body">
                                                 <div class="is-size-5">
                                                     {{ m.content }}
                                                 </div>
@@ -114,7 +114,7 @@
                                         </article>
                                     {% else %}
                                         <br>
-                                        <article class="message" style="width:70%;float:left">
+                                        <article class="message" style="width:70%;">
                                             <div class="message-header">
                                                 <div class="is-size-4" style="display:flex;">
                                                     {% if m.user.image %}
