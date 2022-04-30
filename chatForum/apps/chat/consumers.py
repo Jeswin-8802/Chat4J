@@ -53,12 +53,24 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
             'message': message,
-            'username': username
+            'username': username,
+            'image': await self.get_user_image(username),
+            'time': await self.get_msg_time()
         }))
 
     @sync_to_async
     def save_message(self, username, room, message):
-        Message.objects.create(
-            user = User.objects.get(username = username),
-            room = Forum.objects.get(name = room),
-            content = message)
+        if message != '':
+            Message.objects.create(
+                user = User.objects.get(username = username),
+                room = Forum.objects.get(name = room),
+                content = message)
+
+    @sync_to_async
+    def get_user_image(self, username):
+        return User.objects.get(username = username).image.url
+    
+    @sync_to_async
+    def get_msg_time(self):
+        x = Message.objects.last().timestamp.strftime("%B %d, %Y, %I:%M %p")
+        return ((x[:-8] + x[-7:-2] if x[-8:-7] == '0' else x[:-2]) + x[-2:-1].lower() + '.' + 'm.')

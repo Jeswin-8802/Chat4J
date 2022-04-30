@@ -46,13 +46,6 @@
     </div></center>
     <br><br>
     
-    <script>
-        document.getElementById("b1").addEventListener("click", function () {
-            location.href = "{% url 'enter_forum' %}"
-        });
-        document.getElementById("b2").addEventListener("click", function () {
-            location.href = "{% url 'create_forum' %}"
-        });
-    </script>
+    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
 </body>
 </html>

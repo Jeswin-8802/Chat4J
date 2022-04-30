@@ -64,7 +64,7 @@
         <section class="section">
             <div class="container">
                 <div class="columns is-multiline">
-                    <div class="column is-6 is-offset-3 mb-2">
+                    <div class="column is-7 is-offset-3">
                         <section class="hero is-warning">
                             <div class="hero-body" style="display:flex;padding:10px;border-radius:10%">
                                 <div class="column is-9">
@@ -87,7 +87,7 @@
                         <small class="has-text-grey-light is-italic">admin: <strong>{{ room.admin }}</strong></small>
                     </div>
 
-                    <div class="column is-6 is-offset-3">
+                    <div class="column is-7 is-offset-3">
                         <div class="box">
                             <div id="chat-messages" style="max-height: 400px; overflow-y: scroll;">
                                 {% for m in messages %}
@@ -155,69 +155,9 @@
             </div>
         </section>
 
-       {{ room.name|json_script:"json-roomname" }}
-       {{ user.username|json_script:"json-username" }}
+        {{ room.name|json_script:"json-roomname" }}
+        {{ user.username|json_script:"json-username" }}
 
-        <script>
-            function scrollToBottom() {
-                let objDiv = document.getElementById("chat-messages");
-                objDiv.scrollTop = objDiv.scrollHeight;
-            }
-
-            scrollToBottom();
-
-            const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
-            const userName = JSON.parse(document.getElementById('json-username').textContent);
-
-            const chatSocket = new WebSocket(
-                'ws://'
-                + window.location.host
-                + '/ws/chat/'
-                + roomName
-                + '/'
-            );
-
-            chatSocket.onmessage = function(e) {
-                console.log('onmessage');
-
-                const data = JSON.parse(e.data);
-
-                if (data.message) {
-                    document.querySelector('#chat-messages').innerHTML += ('<b>' + data.username + '</b>: ' + data.message + '<br>');
-                } else {
-                    alert('The message is empty!');
-                }
-
-                scrollToBottom();
-            };
-
-            chatSocket.onclose = function(e) {
-                console.log('The socket closed unexpectedly');
-            };
-
-            document.querySelector('#chat-message-input').focus();
-            document.querySelector('#chat-message-input').onkeyup = function(e) {
-                if (e.keyCode === 13) {
-                    document.querySelector('#chat-message-submit').click();
-                }
-            };
-
-            document.querySelector('#chat-message-submit').onclick = function(e) {
-                const messageInputDom = document.querySelector('#chat-message-input');
-                const message = messageInputDom.value;
-
-                chatSocket.send(JSON.stringify({
-                    'message': message,
-                    'username': userName,
-                    'room': roomName
-                }));
-
-                messageInputDom.value = '';
-            };
-
-            document.querySelector('#home').onclick = function(e) {
-                window.location.replace('/chat');
-            };
-        </script>
+        <script type="text/javascript" src="{% static 'js/room.js' %}"></script>
     </body>
 </html>
