@@ -14,12 +14,13 @@ class Message(models.Model):
         return str(self.pk) + ' - ' + self.user.username
 
 class Forum(models.Model):
-    admin = models.CharField(help_text='Username of the user that created this FORUM', max_length = 25, null = False)
+    admin = models.CharField(help_text='Created By', max_length = 25, null = False)
     participants = models.ManyToManyField(User, blank = True)
     messages = models.ManyToManyField(Message, blank=True)
     name = models.CharField(max_length = 50)
     description = models.TextField(help_text='Forum Description', null = True)
     image = models.ImageField(help_text='Forum Picture', blank=True, upload_to='forum_pic')
+    created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name

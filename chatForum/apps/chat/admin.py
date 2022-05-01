@@ -9,8 +9,8 @@ class MessageAdmin(admin.ModelAdmin):
     readonly_fields = ('id', 'timestamp')
 
 class ForumAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'admin', 'image')
-    readonly_fields = ('id',)
+    list_display = ('id', 'name', 'admin', 'image', 'created_on')
+    readonly_fields = ('id', 'created_on')
 
 admin.site.register(Message, MessageAdmin)
 admin.site.register(Forum, ForumAdmin)

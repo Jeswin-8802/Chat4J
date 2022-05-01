@@ -38,7 +38,7 @@ def enter_forum(request):
             if forum:
                 if request.user not in forum.participants.all():
                     forum.participants.add(request.user)
-                return HttpResponseRedirect('/chat/' + forum_name + '/?username=' + request.user.username)
+                return HttpResponseRedirect('/' + forum_name + '/?username=' + request.user.username)
         except Forum.DoesNotExist:
             messages.error(request, 'Looks like the forum {} does not exist.'.format(forum_name))
     return render(request, 'enter_forum.html')

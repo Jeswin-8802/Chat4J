@@ -11,7 +11,7 @@ const userName = JSON.parse(document.getElementById('json-username').textContent
 const chatSocket = new WebSocket(
     'ws://'
     + window.location.host
-    + '/ws/chat/'
+    + '/ws/'
     + roomName
     + '/'
 );
@@ -62,5 +62,5 @@ document.querySelector('#chat-message-submit').onclick = function(e) {
 };
 
 document.querySelector('#home').onclick = function(e) {
-    window.location.replace('/chat');
+    window.location.replace('/');
 };
