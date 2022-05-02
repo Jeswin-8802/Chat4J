@@ -17,34 +17,39 @@
     <link rel="stylesheet" type="text/css" href = "{% static 'css/create_box.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
-        body {
+        .outer {
             background:url("{% static 'icon/chat.png' %}");
-            background-position:center;
+            position: fixed;
             background-color: #243b55;
+            width: 100%;
+            height: 100%;
+            opacity: 0.9;
         }
     </style>
     <!-- CSS End -->
 </head>
 <body>
-    <center><div class="box">
-        <h2>E N T E R &nbsp;&nbsp; F O R U M</h2>
-        <br>
-        {% block content %}
-            {% for message in messages %}
-                <div class="alert alert-danger" role="alert">
-                    {{ message|escape }}
+    <div class="outer">
+        <center><div class="box">
+            <h2>E N T E R &nbsp;&nbsp; F O R U M</h2>
+            <br>
+            {% block content %}
+                {% for message in messages %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message|escape }}
+                    </div>
+                {% endfor %}
+            {% endblock %}
+            <form method="POST">
+                {% csrf_token %}
+                <br>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="name" aria-describedby="Help" placeholder="Enter Forum Name">
                 </div>
-            {% endfor %}
-        {% endblock %}
-        <form method="POST">
-            {% csrf_token %}
-            <br>
-            <div class="form-group">
-                <input type="text" class="form-control" name="name" aria-describedby="Help" placeholder="Enter Forum Name">
-            </div>
-            <br>
-            <button type="submit" class="btn btn-outline-dark">S U B M I T</button>
-        </form>
-    </div></center>
+                <br>
+                <button type="submit" class="btn btn-outline-dark">S U B M I T</button>
+            </form>
+        </div></center>
+    </div>
 </body>
 </html>

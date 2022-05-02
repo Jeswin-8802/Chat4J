@@ -9,6 +9,8 @@ django-environ = "*"
 pillow = "*"
 channels = "*"
 channels-redis = "*"
+gunicorn = "*"
+autobahn = "*"
 
 [dev-packages]
 

@@ -68,7 +68,9 @@ def create_forum(request):
 @login_required
 def room(request, room_name):
     username = request.user.username
-    messages = Message.objects.filter(room = Forum.objects.get(name = room_name))[0:25]
+    messages = Message.objects.filter(room = Forum.objects.get(name = room_name))
+    if len(messages) > 25:
+        messages = messages[len(messages) - 25:]
 
     return render(request, 'room.html', {
         'room': Forum.objects.get(name = room_name),
