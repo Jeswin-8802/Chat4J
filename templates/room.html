@@ -88,7 +88,7 @@
                     </div>
 
                     <div class="column is-7 is-offset-3">
-                        <div class="box has-background-success-light">
+                        <div class="box" style="background:url('{% static 'icon/pattern.png' %}'); background-color:white;">
                             <div id="chat-messages" style="max-height: 400px; overflow-y: scroll;">
                                 {% for m in messages %}
                                     {% if m.user.username == user.username %}

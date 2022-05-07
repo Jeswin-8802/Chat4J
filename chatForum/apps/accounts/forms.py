@@ -12,5 +12,5 @@ class RegistrationForm(UserCreationForm):
         fields = ('username', 'password1', 'password2')
 
 class Profile(forms.Form):
-    image = forms.ImageField(required = False)
+    image = forms.ImageField(required = True)
     bio = forms.CharField(min_length = 10, max_length = 100)
