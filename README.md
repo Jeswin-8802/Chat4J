@@ -3,10 +3,6 @@
 <img src="https://user-images.githubusercontent.com/84562594/167248134-dcef39b7-ba77-4856-a7bc-01b2ae65f8fa.png" width=20% height=20%>
 
  A Chat Forum Application powered by Django Channels, WebSockets, Django Redis and Asyncio enabling real time chat servers.
-
-It uses `django-channels` to implement `WebSockets`
-
-And `django-redis` to manage cache.
  
 # Setup
 ##### In the project directory:
