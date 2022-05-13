@@ -4,6 +4,8 @@
 
  A Chat Forum Application powered by Django Channels, WebSockets, Django Redis and Asyncio enabling real time chat servers.
  
+ > [Live Demo](https://chat-forum-io.herokuapp.com/)
+ 
 # Setup
 ##### In the project directory:
 > Type the following command to create a virtual environment and initialize it with the necessary packages
