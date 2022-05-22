@@ -8,7 +8,7 @@
  
 # Setup
 ##### In the project directory:
-> Type the following command to create a virtual environment and initialize it with the necessary packages
+> Type the following command to create a virtual environment and initialize it with the necessary packages.
 
 `pipenv install`
 
