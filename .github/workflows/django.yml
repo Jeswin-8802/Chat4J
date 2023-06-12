@@ -40,7 +40,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install pipenv
         pipenv install
-        echo '\n\nREDIS\n'
+        printf "\n\nREDIS\n"
         docker ps | grep redis
-        echo '\n\n'
+        printf "\n\n"
+        pipenv run python manage.py makemigrations
+        pipenv run python manage.py migrate
         pipenv run python manage.py runserver
