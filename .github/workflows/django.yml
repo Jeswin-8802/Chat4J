@@ -1,0 +1,46 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.9]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Redis Server in GitHub Actions
+  # You may pin to the exact commit or the version.
+  # uses: supercharge/redis-github-action@f63fe516254d0af5df91755a4488274c2e71e38c
+      uses: supercharge/redis-github-action@1.5.0
+      with:
+        # Redis image to use. Useful if you need to run a custom Redis image
+        redis-image: redis
+        # Redis version to use
+        redis-version: 6.0.8
+        # Redis port to use and expose
+        redis-port: 6379
+        # Name of the created container. Useful if you run multiple Redis containers
+        redis-container-name: redis
+    - name: Install Dependencies and Start Virtual Environment
+      run: |
+        python -m pip install --upgrade pip
+        pip install pipenv
+        pipenv install
+        pipenv shell
+        py manage.py makemigrations
+        py manage.py migrate
+        docker run -p 6379:6379 -d redis:5
+        py manage.py runserver
